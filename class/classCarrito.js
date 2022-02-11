@@ -1,15 +1,12 @@
-const {Productos} = require('../class/classProductos');
-const manejadorProductos = new Productos();
+const {listaProductos} = require('../class/classProductos');
+
+let listaCarritos = [];
 
 class Carrito {
   static id = 1;
 
-  constructor() {
-    this.carrito = [];
-  }
-
   getAll() {
-    return this.carrito.length == 0 ? null : this.carrito;
+    return listaCarritos.length == 0 ? null : listaCarritos;
   }
 
   // getById(id) {
@@ -22,7 +19,7 @@ class Carrito {
   // }
 
   new() {
-    this.carrito.push({ id: Carrito.id, productos: [] });
+    listaCarritos.push({ id: Carrito.id, productos: [] });
     Carrito.id++;
     return Carrito.id - 1;
   }
@@ -46,25 +43,43 @@ class Carrito {
   // }
 
   deleteById(id) {
-    const resultado = this.carrito.find((idBuscado) => idBuscado.id === parseInt(id));
-    let index = this.carrito.indexOf(resultado);
+    const resultado = listaCarritos.find(
+      (idBuscado) => idBuscado.id === parseInt(id)
+    );
+    let index = listaCarritos.indexOf(resultado);
     if (index == -1) {
       return { error: "Carrito no encontrado" };
     } else {
-      this.carrito.splice(index, 1);
+      listaCarritos.splice(index, 1);
     }
   }
 
-  addProduct(idCarrito,idProducto){
-    //   console.log(`el id de producto es ${idProducto.id}`);
-    // const index = this.carrito.find((idBuscado) => idBuscado.id === parseInt(idCarrito));
-    // console.log(`el index es ${index}`);
-    console.log(`el id del producto ${idProducto.id}`);
-    // console.log(manejadorProductos.isExist(idProducto.id));
-    const producto = manejadorProductos.getById(idProducto.id);
-    console.log(producto);
-    // this.carrito[0].productos.push(manejadorProductos.getById(idProducto.id))
-    // this.carrito[index].productos.push(manejadorProductos.getById(idProducto)[0])
+  addProduct(idCarrito, producto) {
+    let index = listaCarritos.findIndex((carrito) => carrito.id == idCarrito);
+    console.log(index);
+    if(index == -1){
+        return false
+    } else{
+        listaCarritos[index].productos.push(producto);
+        return true
+    }
+  }
+
+  lessProduct(idCarrito, idProducto) {
+    let indexCarrito = listaCarritos.findIndex((carrito) => carrito.id == idCarrito);
+    console.log(`indice de carrito ${indexCarrito}`);
+    if(indexCarrito == -1){
+        return false
+    } else{
+        let indexProduct = listaCarritos[indexCarrito].productos.findIndex((producto) => producto.id == idProducto);
+        console.log(`indice de producto ${indexProduct}`);
+        if(indexProduct == -1){
+            return false
+        } else{
+            listaCarritos[indexCarrito].productos.splice(indexProduct,1)
+            return true
+        }
+    }
   }
 }
   

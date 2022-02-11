@@ -1,21 +1,16 @@
+let listaProductos = [];
+
 class Productos {
   static id = 1;
 
-  constructor() {
-    this.productos = [];
-  }
-
   getAll() {
-    return this.productos.length == 0 ? null : this.productos;
+    return listaProductos.length == 0 ? null : listaProductos;
   }
 
-  isExist(id){
-    const producto = this.productos.find(producto => producto.id === id)
-     return producto ? producto : null
-  }
 
   getById(id) {
-    const resultado = this.productos.find((idBuscado) => idBuscado.id == parseInt(id));
+    console.log(`desde metodo ${listaProductos}`);
+    const resultado = listaProductos.find((idBuscado) => idBuscado.id == parseInt(id));
     if (resultado === undefined) {
       return { error: "producto no encontrado" };
     } else {
@@ -26,7 +21,7 @@ class Productos {
   save(producto) {
     if (producto.title && producto.price && producto.thumbnail) {
       producto.id = Productos.id;
-      this.productos.push(producto);
+      listaProductos.push(producto);
       Productos.id++;
       return producto;
     } else {
@@ -35,7 +30,7 @@ class Productos {
   }
 
   updateById(id, producto) {
-    const resultado = this.productos.find(
+    const resultado = listaProductos.find(
       (idBuscado) => idBuscado.id === parseInt(id)
     );
 
@@ -53,15 +48,15 @@ class Productos {
   }
 
   deleteById(id) {
-    const resultado = this.productos.find((idBuscado) => idBuscado.id === parseInt(id));
+    const resultado = listaProductos.find((idBuscado) => idBuscado.id === parseInt(id));
 
     if (resultado === undefined) {
       return { error: "producto no encontrado" };
     } else {
-      this.productos = this.productos.filter((idEliminado) => idEliminado.id !== parseInt(id));
+      listaProductos = listaProductos.filter((idEliminado) => idEliminado.id !== parseInt(id));
     }
   }
 }
 
 
-module.exports = {Productos};
+module.exports = {Productos , listaProductos};

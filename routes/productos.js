@@ -3,6 +3,7 @@ const router = express.Router();
 const {Productos} = require('../class/classProductos');
 const manejadorProductos = new Productos();
 
+
 router.get('/', (req, res) =>{
     const productos = manejadorProductos.getAll();
     res.send(productos);
@@ -30,5 +31,15 @@ router.delete('/:id', (req, res) =>{
     const producto = manejadorProductos.deleteById(req.params.id);
     res.send((producto === undefined ? `Se eliminó el producto con id ${req.params.id}` : JSON.stringify(producto)));
 });
+
+// app.use((req, res) => {
+//   res.json({
+//     error: {
+//       error: -2,
+//       descripcion: `Ruta ${req.originalUrl} y metodo ${req.method} no implementados`,
+//     },
+//   });
+// });
+
 
 module.exports = router;
