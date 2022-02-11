@@ -12,7 +12,6 @@ app.use('/api/productos',productos);
 app.use('/api/carrito',carrito);
 app.use(mdw.ruta_invalida);
 
-
 const server = app.listen(PORT, () => console.log(`Servidor listo en el puerto ${PORT} ...`))
 
 server.on('error', error => console.log(`Error en el servidor... Error: ${error}`));

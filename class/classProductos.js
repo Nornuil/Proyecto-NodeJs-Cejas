@@ -7,10 +7,10 @@ class Productos {
     return listaProductos.length == 0 ? null : listaProductos;
   }
 
-
   getById(id) {
-    console.log(`desde metodo ${listaProductos}`);
-    const resultado = listaProductos.find((idBuscado) => idBuscado.id == parseInt(id));
+    const resultado = listaProductos.find(
+      (idBuscado) => idBuscado.id == parseInt(id)
+    );
     if (resultado === undefined) {
       return { error: "producto no encontrado" };
     } else {
@@ -48,15 +48,18 @@ class Productos {
   }
 
   deleteById(id) {
-    const resultado = listaProductos.find((idBuscado) => idBuscado.id === parseInt(id));
+    const resultado = listaProductos.find(
+      (idBuscado) => idBuscado.id === parseInt(id)
+    );
 
     if (resultado === undefined) {
       return { error: "producto no encontrado" };
     } else {
-      listaProductos = listaProductos.filter((idEliminado) => idEliminado.id !== parseInt(id));
+      listaProductos = listaProductos.filter(
+        (idEliminado) => idEliminado.id !== parseInt(id)
+      );
     }
   }
 }
 
-
-module.exports = {Productos , listaProductos};
+module.exports = { Productos, listaProductos };
