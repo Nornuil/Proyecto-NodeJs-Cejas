@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Productos } = require("../class/classProductos");
 const manejadorProductos = new Productos();
+// id, timestamp, nombre, descripción, código, foto (url), precio, stock
 
 router.get("/", (req, res) => {
   const productos = manejadorProductos.getAll();

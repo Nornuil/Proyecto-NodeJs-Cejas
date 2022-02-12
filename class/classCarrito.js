@@ -1,3 +1,5 @@
+const { Productos } = require("../class/classProductos");
+const manejadorProductos = new Productos();
 let listaCarritos = [];
 
 class Carrito {
@@ -26,13 +28,15 @@ class Carrito {
   }
 
   addProduct(idCarrito, producto) {
-    let index = listaCarritos.findIndex((carrito) => carrito.id == idCarrito);
-    if (index == -1) {
-      return false;
-    } else {
-      listaCarritos[index].productos.push(producto);
-      return true;
-    }
+    if (manejadorProductos.isExist(producto.id)) {
+      let index = listaCarritos.findIndex((carrito) => carrito.id == idCarrito);
+      if (index == -1) {
+        return false;
+      } else {
+        listaCarritos[index].productos.push(producto);
+        return true;
+      }      
+    } else { return false }
   }
 
   lessProduct(idCarrito, idProducto) {
